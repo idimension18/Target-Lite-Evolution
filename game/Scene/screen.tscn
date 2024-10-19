@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://xckrgcymwj4j"]
+[gd_scene load_steps=10 format=3 uid="uid://xckrgcymwj4j"]
 
 [ext_resource type="Texture2D" uid="uid://bjk6aflx7h2j5" path="res://asset/texture/background.png" id="1_5sqw0"]
 [ext_resource type="Script" path="res://Scene/screen.gd" id="1_c2gko"]
 [ext_resource type="PackedScene" uid="uid://cu5u7loxia76k" path="res://Scene/ship.tscn" id="2_2oilq"]
+[ext_resource type="PackedScene" uid="uid://vngv0nk0iwp3" path="res://Scene/asteroide.tscn" id="4_nvtia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcicn"]
 size = Vector2(45, 657)
@@ -16,12 +17,15 @@ size = Vector2(1195, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkios"]
 size = Vector2(77, 667)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqls"]
+size = Vector2(1515, 866)
+
 [node name="Screen" type="Node2D"]
 script = ExtResource("1_c2gko")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(596, 323)
-scale = Vector2(1.29, 1.29)
+position = Vector2(598.5, 324.25)
+scale = Vector2(1.295, 1.295)
 texture = ExtResource("1_5sqw0")
 
 [node name="Ship" parent="." instance=ExtResource("2_2oilq")]
@@ -31,6 +35,7 @@ maxSpeed = 3000
 Acceleration = 1500
 
 [node name="Walls" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-21, 322)
@@ -48,4 +53,18 @@ shape = SubResource("RectangleShape2D_ag71c")
 position = Vector2(1192, 317)
 shape = SubResource("RectangleShape2D_jkios")
 
+[node name="Active Zone" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Active Zone"]
+position = Vector2(597.5, 328)
+shape = SubResource("RectangleShape2D_ihqls")
+
+[node name="Asteroide" parent="." instance=ExtResource("4_nvtia")]
+visible = false
+position = Vector2(1234, 179)
+monitoring = false
+monitorable = false
+
 [connection signal="laser_fired" from="Ship" to="." method="_on_ship_laser_fired"]
+[connection signal="area_exited" from="Active Zone" to="." method="_on_active_zone_area_exited"]
