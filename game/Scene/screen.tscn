@@ -1,3 +1,51 @@
-[gd_scene format=3 uid="uid://xckrgcymwj4j"]
+[gd_scene load_steps=8 format=3 uid="uid://xckrgcymwj4j"]
+
+[ext_resource type="Texture2D" uid="uid://bjk6aflx7h2j5" path="res://asset/texture/background.png" id="1_5sqw0"]
+[ext_resource type="Script" path="res://Scene/screen.gd" id="1_c2gko"]
+[ext_resource type="PackedScene" uid="uid://cu5u7loxia76k" path="res://Scene/ship.tscn" id="2_2oilq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcicn"]
+size = Vector2(45, 657)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1ry"]
+size = Vector2(1169, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag71c"]
+size = Vector2(1195, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkios"]
+size = Vector2(77, 667)
 
 [node name="Screen" type="Node2D"]
+script = ExtResource("1_c2gko")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(596, 323)
+scale = Vector2(1.29, 1.29)
+texture = ExtResource("1_5sqw0")
+
+[node name="Ship" parent="." instance=ExtResource("2_2oilq")]
+position = Vector2(151, 350)
+scale = Vector2(0.3, 0.3)
+maxSpeed = 3000
+Acceleration = 1500
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-21, 322)
+shape = SubResource("RectangleShape2D_mcicn")
+
+[node name="Up" type="CollisionShape2D" parent="Walls"]
+position = Vector2(584, -20)
+shape = SubResource("RectangleShape2D_nc1ry")
+
+[node name="Down" type="CollisionShape2D" parent="Walls"]
+position = Vector2(572.5, 656)
+shape = SubResource("RectangleShape2D_ag71c")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1192, 317)
+shape = SubResource("RectangleShape2D_jkios")
+
+[connection signal="laser_fired" from="Ship" to="." method="_on_ship_laser_fired"]
