@@ -14,9 +14,11 @@ func _ready() -> void:
 	else :
 		dir = 1
 	
-	angleSpeed = rng.randf_range(100, 360)
+	var taille = rng.randf_range(0.3,  1)
+	scale = Vector2(taille, taille)
 	
 	position = Vector2(1155 + 55, rng.randf_range(55, 647 - 55))
+	angleSpeed = (1 - taille) * rng.randf_range(100, 360)
 
 func _physics_process(delta: float) -> void:
 	position += Vector2.LEFT * speed * delta
