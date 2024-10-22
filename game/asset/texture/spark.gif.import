@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://c3m6vc0gtall1"
+path="res://.godot/imported/spark.gif-13d1f62aef5e84892bdeb977cb00a9f4.tres"
+
+[deps]
+
+source_file="res://asset/texture/spark.gif"
+dest_files=["res://.godot/imported/spark.gif-13d1f62aef5e84892bdeb977cb00a9f4.tres"]
+
+[params]
+
+frames_per_second=30

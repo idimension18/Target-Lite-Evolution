@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cecm2f0dvx5l7"]
+
+[ext_resource type="Texture2D" uid="uid://dig45ri503itu" path="res://asset/texture/life.png" id="1_rhlp1"]
+
+[node name="Life" type="Sprite2D"]
+position = Vector2(-1.42109e-14, 1.42109e-14)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rhlp1")
