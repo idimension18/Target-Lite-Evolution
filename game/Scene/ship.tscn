@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cu5u7loxia76k"]
+[gd_scene load_steps=55 format=3 uid="uid://cu5u7loxia76k"]
 
 [ext_resource type="Texture2D" uid="uid://dry8dhhit6kde" path="res://asset/texture/Ship.png" id="1_48bwn"]
 [ext_resource type="Script" path="res://Scene/ship.gd" id="1_vi01p"]
@@ -49,6 +49,8 @@
 [ext_resource type="Texture2D" uid="uid://dgfkretageoos" path="res://asset/texture/blowGif/25.png" id="47_6pipl"]
 [ext_resource type="Texture2D" uid="uid://c0471vfybyiuu" path="res://asset/texture/blowGif/26.png" id="48_qo53b"]
 [ext_resource type="Texture2D" uid="uid://b7omhw7k800u4" path="res://asset/texture/blowGif/27.png" id="49_n6efc"]
+[ext_resource type="AudioStream" uid="uid://8sj7ti5t7cxl" path="res://asset/fx/spark.wav" id="50_xlnh7"]
+[ext_resource type="AudioStream" uid="uid://djivnkuce1lf5" path="res://asset/fx/blow.wav" id="51_gefnd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i1mwf"]
 radius = 102.0
@@ -232,3 +234,11 @@ frame = 1
 [node name="Blow" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_oopgg")
+
+[node name="Damage" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("50_xlnh7")
+
+[node name="Blow2" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("51_gefnd")

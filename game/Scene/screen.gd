@@ -24,6 +24,8 @@ func _ready() -> void:
 		tmp.name = "Life" + str(i)
 		tmp.position = Vector2(i*75 + 35, 35)
 		add_child(tmp)
+	
+	$Soundtrack.play()
 
 
 func _physics_process(delta: float) -> void:
@@ -36,11 +38,11 @@ func _physics_process(delta: float) -> void:
 			add_child(target.instantiate())
 	
 	$GUI/BarNormalized.scale = Vector2($Ship.energy/$Ship.maxEnergy, 1)
-	
-	
-func _on_ship_laser_fired(position: Variant, angle: Variant) -> void:
+
+
+func _on_ship_laser_fired(laserPos: Variant, angle: Variant) -> void:
 	var newLaser = laser.instantiate()
-	newLaser.position = position
+	newLaser.position = laserPos
 	newLaser.rotation_degrees = angle
 	add_child(newLaser)
 	newLaser.incrScore.connect(_updateScore)
@@ -57,8 +59,11 @@ func _on_ship_reset() -> void:
 func _on_ship_lost_life(i:int) -> void:
 	var tmp = get_node("Life" + str(i))
 	tmp.queue_free()
+	if i == 0:
+		$Soundtrack.stop()
 
 func _updateScore(value:int, targetPos:Vector2) -> void:
+	$Break.play()
 	score += value
 	if value < 10:
 		$GUI/Score.text = "SCORE : 000" + str(score)

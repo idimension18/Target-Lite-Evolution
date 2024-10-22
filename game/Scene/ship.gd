@@ -93,6 +93,7 @@ func damaging():
 			die()
 
 func damage():
+	$Damage.play()
 	$Spark.visible = true
 	$Spark.play()
 	is_damaging = true
@@ -121,6 +122,7 @@ func blink():
 
 
 func die():
+	$Blow2.play()
 	rotation_degrees = 0
 	is_stunt = true
 	$Blow.visible = true

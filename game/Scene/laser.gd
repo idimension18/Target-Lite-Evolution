@@ -5,6 +5,11 @@ var speed = 600.
 
 signal incrScore(int, Vector2)
 
+
+func _ready() -> void:
+	$bzzz.play()
+
+
 func _process(delta: float) -> void:
 	position += transform.basis_xform(Vector2.RIGHT) * speed * delta
 

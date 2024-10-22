@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xckrgcymwj4j"]
+[gd_scene load_steps=14 format=3 uid="uid://xckrgcymwj4j"]
 
 [ext_resource type="Texture2D" uid="uid://bjk6aflx7h2j5" path="res://asset/texture/background.png" id="1_5sqw0"]
 [ext_resource type="Script" path="res://Scene/screen.gd" id="1_c2gko"]
@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://bb8bnuf5nbsv0" path="res://font/m5x7.ttf" id="4_dvxfr"]
 [ext_resource type="Texture2D" uid="uid://dlcfcgdkbj1k6" path="res://asset/texture/border.png" id="5_x34jh"]
 [ext_resource type="Texture2D" uid="uid://brvve4aj3n1yr" path="res://asset/texture/bar.png" id="6_k3h8u"]
+[ext_resource type="AudioStream" uid="uid://cqrfi0wdk3h2q" path="res://asset/music/TargetSong.wav" id="7_27d4i"]
+[ext_resource type="AudioStream" uid="uid://brryhe8p0wfee" path="res://asset/fx/break.wav" id="8_rnsv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcicn"]
 size = Vector2(45, 657)
@@ -103,6 +105,13 @@ texture = ExtResource("6_k3h8u")
 [node name="Sprite2D" type="Sprite2D" parent="GUI"]
 position = Vector2(1051, 26)
 texture = ExtResource("5_x34jh")
+
+[node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("7_27d4i")
+
+[node name="Break" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_rnsv1")
 
 [connection signal="laser_fired" from="Ship" to="." method="_on_ship_laser_fired"]
 [connection signal="lostLife" from="Ship" to="." method="_on_ship_lost_life"]

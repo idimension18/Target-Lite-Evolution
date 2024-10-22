@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://qgv5x6yl1266"]
+[gd_scene load_steps=5 format=3 uid="uid://qgv5x6yl1266"]
 
 [ext_resource type="Script" path="res://Scene/laser.gd" id="1_1d7ih"]
 [ext_resource type="Texture2D" uid="uid://b3xgwyj6iw5io" path="res://asset/texture/laser.png" id="1_jjq8v"]
+[ext_resource type="AudioStream" uid="uid://bhx5b216edfyj" path="res://asset/fx/lazer.wav" id="3_c2vij"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lq7q7"]
 size = Vector2(48, 12)
@@ -14,5 +15,8 @@ texture = ExtResource("1_jjq8v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lq7q7")
+
+[node name="bzzz" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_c2vij")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
