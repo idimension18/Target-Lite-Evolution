@@ -22,6 +22,7 @@ var stuntSpeed = 100.
 var stuntAngle = 0.
 var life = 3
 var energy = 8.
+var targetAngle = 0.
 
 signal reset
 signal lostLife(int)
@@ -50,7 +51,12 @@ func control(delta: float) -> void:
 	# Firing lasers 
 	if Input.is_action_just_pressed("SPACE") && energy > laserConsumption:
 		laser_fired.emit(position, rotation_degrees)
-		energy -= laserConsumption 
+		energy -= laserConsumption
+	
+	var dirY = Input.get_axis("UPS", "DOWNS")
+	var dirX = Input.get_axis("LEFTS", "RIGHTS")
+	if not (dirY == 0 && dirX == 0):
+		targetAngle = Vector2(dirX, dirY).angle()
 
 
 # main update 
@@ -60,6 +66,7 @@ func _physics_process(delta: float) -> void:
 		
 	# apply movements 
 	move_and_slide()
+	rotation = rotate_toward(rotation, targetAngle, delta*8)
 	
 	# je sait pas ou le mettre
 	if $Spark.frame == 17:
