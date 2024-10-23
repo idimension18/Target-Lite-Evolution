@@ -109,6 +109,7 @@ texture = ExtResource("5_x34jh")
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 visible = false
 stream = ExtResource("7_27d4i")
+autoplay = true
 
 [node name="Break" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_rnsv1")
@@ -117,3 +118,4 @@ stream = ExtResource("8_rnsv1")
 [connection signal="lostLife" from="Ship" to="." method="_on_ship_lost_life"]
 [connection signal="reset" from="Ship" to="." method="_on_ship_reset"]
 [connection signal="area_exited" from="Active Zone" to="." method="_on_active_zone_area_exited"]
+[connection signal="finished" from="Soundtrack" to="." method="_on_soundtrack_finished"]

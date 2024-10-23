@@ -65,11 +65,11 @@ func _on_ship_lost_life(i:int) -> void:
 func _updateScore(value:int, targetPos:Vector2) -> void:
 	$Break.play()
 	score += value
-	if value < 10:
+	if score < 10:
 		$GUI/Score.text = "SCORE : 000" + str(score)
-	elif value < 100 : 
+	elif score < 100 : 
 		$GUI/Score.text = "SCORE : 00" + str(score)
-	elif value < 1000 : 
+	elif score < 1000 : 
 		$GUI/Score.text = "SCORE : 0" + str(score)
 	else:
 		$GUI/Score.text = "SCORE : " + str(score)
@@ -79,3 +79,7 @@ func _updateScore(value:int, targetPos:Vector2) -> void:
 	newInfo.startPos = targetPos
 	newInfo.value = value
 	add_child(newInfo)
+
+
+func _on_soundtrack_finished() -> void:
+	$Soundtrack.play()

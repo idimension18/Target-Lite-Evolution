@@ -23,12 +23,12 @@ var stuntAngle = 0.
 var life = 3
 var energy = 8.
 var targetAngle = 0.
-
-signal reset
-signal lostLife(int)
+var toggle = false
 
 # Custom signals 
 signal laser_fired(position, angle)
+signal reset
+signal lostLife(int)
 
 func control(delta: float) -> void:
 	# Movements 
@@ -38,9 +38,9 @@ func control(delta: float) -> void:
 		if velocity.length() >= maxSpeed :
 			velocity -= Acceleration * transform.basis_xform(Vector2.RIGHT) * delta
 	
-	
-	var dir = Input.get_axis("LEFT", "RIGHT")
-	rotation_degrees += dir * AngleSpeed * delta
+	if not toggle:
+		var dir = Input.get_axis("LEFT", "RIGHT")
+		rotation_degrees += dir * AngleSpeed * delta
 	
 	#  Controlling the fire
 	if Input.is_action_just_pressed("Forward") :
@@ -53,11 +53,16 @@ func control(delta: float) -> void:
 		laser_fired.emit(position, rotation_degrees)
 		energy -= laserConsumption
 	
-	var dirY = Input.get_axis("UPS", "DOWNS")
-	var dirX = Input.get_axis("LEFTS", "RIGHTS")
-	if not (dirY == 0 && dirX == 0):
-		targetAngle = Vector2(dirX, dirY).angle()
-
+	if toggle:
+		var dirY = Input.get_axis("UPS", "DOWNS")
+		var dirX = Input.get_axis("LEFTS", "RIGHTS")
+		if not (dirY == 0 && dirX == 0):
+			targetAngle = Vector2(dirX, dirY).angle()
+	
+	if Input.is_action_just_pressed("TOGGLE_BOARD"):
+		toggle = true
+	if Input.is_action_just_pressed("TOGGLE_PAD"):
+		toggle = false
 
 # main update 
 func _physics_process(delta: float) -> void:
@@ -66,13 +71,16 @@ func _physics_process(delta: float) -> void:
 		
 	# apply movements 
 	move_and_slide()
-	rotation = rotate_toward(rotation, targetAngle, delta*8)
+	
+	if toggle:
+		rotation = rotate_toward(rotation, targetAngle, delta*8)
 	
 	# je sait pas ou le mettre
 	if $Spark.frame == 17:
 		$Spark.visible = false
 		$Spark.stop()
 	
+	# sa non plus 
 	if $Blow.frame == 27:
 		$Blow.visible = false
 		$Blow.stop()
