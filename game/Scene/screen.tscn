@@ -9,6 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://cqrfi0wdk3h2q" path="res://asset/music/TargetSong.wav" id="7_27d4i"]
 [ext_resource type="AudioStream" uid="uid://brryhe8p0wfee" path="res://asset/fx/break.wav" id="8_rnsv1"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqls"]
+size = Vector2(1515, 866)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcicn"]
 size = Vector2(45, 657)
 
@@ -20,9 +23,6 @@ size = Vector2(1195, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkios"]
 size = Vector2(77, 667)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqls"]
-size = Vector2(1515, 866)
 
 [node name="Screen" type="Node2D"]
 script = ExtResource("1_c2gko")
@@ -38,31 +38,11 @@ scale = Vector2(0.3, 0.3)
 maxSpeed = 3000
 Acceleration = 1500
 
-[node name="Walls" type="StaticBody2D" parent="."]
-visible = false
+[node name="Lasers" type="Node2D" parent="."]
 
-[node name="Left" type="CollisionShape2D" parent="Walls"]
-position = Vector2(-21, 322)
-shape = SubResource("RectangleShape2D_mcicn")
+[node name="Targets" type="Node2D" parent="."]
 
-[node name="Up" type="CollisionShape2D" parent="Walls"]
-position = Vector2(584, -20)
-shape = SubResource("RectangleShape2D_nc1ry")
-
-[node name="Down" type="CollisionShape2D" parent="Walls"]
-position = Vector2(572.5, 656)
-shape = SubResource("RectangleShape2D_ag71c")
-
-[node name="Right" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1192, 317)
-shape = SubResource("RectangleShape2D_jkios")
-
-[node name="Active Zone" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Active Zone"]
-position = Vector2(597.5, 328)
-shape = SubResource("RectangleShape2D_ihqls")
+[node name="Asteroides" type="Node2D" parent="."]
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -114,8 +94,34 @@ autoplay = true
 [node name="Break" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_rnsv1")
 
+[node name="Active Zone" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Active Zone"]
+position = Vector2(597.5, 328)
+shape = SubResource("RectangleShape2D_ihqls")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-21, 322)
+shape = SubResource("RectangleShape2D_mcicn")
+
+[node name="Up" type="CollisionShape2D" parent="Walls"]
+position = Vector2(584, -20)
+shape = SubResource("RectangleShape2D_nc1ry")
+
+[node name="Down" type="CollisionShape2D" parent="Walls"]
+position = Vector2(572.5, 656)
+shape = SubResource("RectangleShape2D_ag71c")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1192, 317)
+shape = SubResource("RectangleShape2D_jkios")
+
 [connection signal="laser_fired" from="Ship" to="." method="_on_ship_laser_fired"]
 [connection signal="lostLife" from="Ship" to="." method="_on_ship_lost_life"]
 [connection signal="reset" from="Ship" to="." method="_on_ship_reset"]
-[connection signal="area_exited" from="Active Zone" to="." method="_on_active_zone_area_exited"]
 [connection signal="finished" from="Soundtrack" to="." method="_on_soundtrack_finished"]
+[connection signal="area_exited" from="Active Zone" to="." method="_on_active_zone_area_exited"]

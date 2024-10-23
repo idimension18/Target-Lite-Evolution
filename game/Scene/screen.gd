@@ -33,9 +33,9 @@ func _physics_process(delta: float) -> void:
 	if debritTimer > debritPeriod :
 		debritTimer = 0.
 		if rng.randf() < asteroideRate : 
-			add_child(asteroide.instantiate())
+			$Asteroides.add_child(asteroide.instantiate())
 		if rng.randf() > 1- targetRate :
-			add_child(target.instantiate())
+			$Targets.add_child(target.instantiate())
 	
 	$GUI/BarNormalized.scale = Vector2($Ship.energy/$Ship.maxEnergy, 1)
 
@@ -44,7 +44,7 @@ func _on_ship_laser_fired(laserPos: Variant, angle: Variant) -> void:
 	var newLaser = laser.instantiate()
 	newLaser.position = laserPos
 	newLaser.rotation_degrees = angle
-	add_child(newLaser)
+	$Lasers.add_child(newLaser)
 	newLaser.incrScore.connect(_updateScore)
 
 
